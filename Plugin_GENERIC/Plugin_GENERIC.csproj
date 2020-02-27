@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyVersion>2020.2.25.2108</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -10,7 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Composition" Version="1.0.31" />
-    <PackageReference Include="ShuffleExchange.SEPlugin" Version="1.0.0" />
+    <PackageReference Include="ShuffleExchange.SEPlugin" Version="1.1.3" />
   </ItemGroup>
 
 </Project>

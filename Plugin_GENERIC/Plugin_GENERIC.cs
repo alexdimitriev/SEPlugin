@@ -24,14 +24,14 @@ namespace Plugin_GENERIC
             {
                 return new List<ConnectionStructure>() {
                 new ConnectionStructure() {
-                    Name = "username",
-                    Label = "User Name",
+                    Name = "parameter1",
+                    Label = "Parameter 1",
                     Required =  true,
                     Mask = false
                 },
                   new ConnectionStructure() {
-                    Name = "password",
-                    Label = "Password",
+                    Name = "parameter2",
+                    Label = "Parameter 2",
                     Required =  true,
                     Mask = true
                 }
@@ -45,6 +45,16 @@ namespace Plugin_GENERIC
 
             return new List<MethodType>() {
 
+                new MethodType() {
+                    Type = "GET",
+                    Methods = new List<Method>() {
+                        new Method() {
+                            Name = "Info",
+                            sampleInput = "",
+                            sampleOutput  = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
+                        }
+                    }
+                },
                 new MethodType() {
                     Type = "POST",
                     Methods = MethodList()
@@ -60,7 +70,7 @@ namespace Plugin_GENERIC
                             sampleInput = "<add><input>1</input><input>2</input></add>",
                             sampleOutput  = "<result>3</result>"
                         },
-                                                new Method() {
+                          new Method() {
                             Name = "Multiply",
                             sampleInput = "<multiply><input>2</input><input>3</input></add>",
                             sampleOutput  = "<result>6</result>"
@@ -74,10 +84,27 @@ namespace Plugin_GENERIC
 
         }
 
-        public string Do(List<ConnectionValue> Connection, string MethodType, string MethodName, string inputString)
+        public Result Do(List<ConnectionValue> Connection, string MethodType, string MethodName, string inputString)
         {
             //implement this
-            return MethodTypes(Connection).FirstOrDefault(x => x.Type == MethodType)?.Methods.FirstOrDefault(x => x.Name == MethodName).sampleOutput;
+
+            if (MethodType == "GET")
+            {
+                //return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                return new Result()
+                {
+                    Success = true,
+                    Output = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
+                };
+            }
+
+            //return "this is not implemented";
+            return new Result()
+            {
+                Success = false,
+                Output = "<Error>" + "this is not implemented" + "</Error>",
+                ErrorMessage = "this is not implemented"
+            };
         }
 
         public Result TestConnection(List<ConnectionValue> Connection)
